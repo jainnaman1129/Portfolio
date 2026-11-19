@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}</style>
+<title>Devotional Décor Turnaround</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: data-first case study, same system as the Festive Rangoli Launch page. KPIs, ratio strip, spec and funnel tables, then lens-magnified proof */
+:root{
+  --bg:#F6F5F2; --surface:#FFFFFF; --ink:#1D1A23; --muted:#5F5A68; --line:#E3DFE6;
+  --marigold:#D97A06; --marigold-soft:#FCEBD3; --maroon:#8C1D3D; --good:#1E7A4C; --bad:#B42318;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Inter", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141219; --surface:#1D1A24; --ink:#EFEBF3; --muted:#A8A1B3; --line:#2E2A37;
+  --marigold:#F2A03D; --marigold-soft:#3A2A16; --maroon:#E0708F; --good:#5BC28C; --bad:#F97066; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#141219; --surface:#1D1A24; --ink:#EFEBF3; --muted:#A8A1B3; --line:#2E2A37;
+  --marigold:#F2A03D; --marigold-soft:#3A2A16; --maroon:#E0708F; --good:#5BC28C; --bad:#F97066; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));}
+.wrap{max-width:1080px;margin:0 auto;padding-block:44px 72px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(2rem, 5vw, 3.2rem);font-weight:800;letter-spacing:-0.02em}
+h1 em{font-style:normal;color:var(--marigold)}
+h2{font-size:clamp(1.35rem, 2.6vw, 1.75rem);font-weight:700;letter-spacing:-0.01em}
+h3{font-size:1rem;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--maroon)}
+.lede{font-size:1.05rem;color:var(--muted);max-width:660px}
+.stack{display:flex;flex-direction:column;gap:16px}
+.muted{color:var(--muted)}
+
+.hero{display:flex;flex-direction:column;gap:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface)}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--ink)}
+.kpi{padding:16px 14px 16px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi:not(:nth-child(4n+1)){padding-left:14px;border-left:1px solid var(--line)}
+.kpi .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi b{font-family:var(--display);font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;line-height:1.1}
+.kpi .s{font-size:.78rem;color:var(--muted)}
+.kpi.hl b{color:var(--marigold)}
+.kpi.ok b{color:var(--good)}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi:not(:nth-child(4n+1)){padding-left:0;border-left:0}.kpi:nth-child(even){padding-left:14px;border-left:1px solid var(--line)}}
+
+.ratios{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ratio{background:var(--ink);color:var(--bg);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.ratio b{font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--marigold);line-height:1.1}
+.ratio span{font-size:.8rem;opacity:.8}
+@media (max-width:760px){.ratios{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.9rem}
+th{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;text-align:right;padding:8px 8px 8px 0;border-bottom:2px solid var(--ink);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:9px 8px 9px 0;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+tr.peak td{background:var(--marigold-soft);font-weight:600}
+td.k{color:var(--muted);white-space:normal}
+td.up{color:var(--good);font-weight:600}
+td.down{color:var(--bad);font-weight:600}
+.spec td:last-child{font-weight:600;white-space:normal}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.steps .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.steps .n{font-family:var(--mono);font-size:.75rem;color:var(--marigold)}
+.steps ul{margin:0;padding-left:18px;color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:2px}
+.steps .out{font-family:var(--mono);font-size:.72rem;color:var(--ink);background:var(--marigold-soft);padding:3px 8px;border-radius:4px;align-self:flex-start}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
+.audit{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:.7rem;padding:3px 8px;border-radius:4px;background:var(--marigold-soft);color:var(--ink)}
+
+.split-bar{display:flex;height:34px;border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:.75rem;font-weight:600}
+.split-bar div{display:flex;align-items:center;padding:0 10px;white-space:nowrap}
+.split-bar .ad{background:var(--maroon);color:#fff}
+.split-bar .org{background:var(--marigold);color:#1D1A23;flex:1}
+.legend{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);gap:12px;flex-wrap:wrap}
+
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;margin:0}
+.chart svg{width:100%;height:auto;display:block}
+.chart small{color:var(--muted);font-size:.78rem}
+
+.health{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.metric .lbl{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.metric .row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.metric .from{font-family:var(--mono);font-size:.82rem;color:var(--bad);text-decoration:line-through}
+.metric .to{font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--good);line-height:1.1}
+.metric .sub{font-size:.74rem;color:var(--muted)}
+@media (max-width:860px){.health{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.note{display:flex;gap:12px;align-items:flex-start;border-left:3px solid var(--marigold);padding:4px 0 4px 16px}
+.note b{font-family:var(--mono);font-size:.75rem;color:var(--marigold);white-space:nowrap;padding-top:2px}
+
+.ba{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px}
+.pair figure{position:relative;margin:0}
+.pair img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px}
+.pair .lab{position:absolute;top:6px;left:6px;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--muted)}
+.pair .lab.new{background:var(--marigold);color:#1D1A23}
+.pair .cap{grid-column:1 / -1;font-size:.78rem;color:var(--muted);padding:2px 4px 0}
+@media (max-width:860px){.ba{grid-template-columns:1fr}}
+
+.proofs{display:flex;flex-direction:column;gap:36px}
+.proof{display:flex;flex-direction:column;gap:10px;min-width:0}
+.proof .cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.proof .cap span{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.proof-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:20px;align-items:start}
+@media (max-width:760px){.proof-row{grid-template-columns:1fr}}
+.shot{position:relative;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-bottom:28px}
+.shot > img{display:block;width:100%;height:auto;border-radius:10px}
+.lens{position:absolute;border-radius:50%;background-repeat:no-repeat;background-color:var(--surface);
+  border:4px solid var(--marigold);box-shadow:0 0 0 3px var(--surface),0 12px 28px rgba(29,26,35,.28);transform:translate(-50%,-50%);z-index:1}
+.lens::after{content:"";position:absolute;width:26%;height:9%;background:var(--marigold);border-radius:6px;right:-16%;bottom:-2%;transform:rotate(45deg);transform-origin:left center}
+.tagline{position:absolute;transform:translate(-50%,0);background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;z-index:2}
+.tagline.right{transform:translate(0,-50%)}
+@media (max-width:600px){.tagline{font-size:.6rem;padding:2px 6px}.lens{border-width:3px}}
+
+blockquote{margin:0;padding:0 0 0 20px;border-left:3px solid var(--marigold);display:flex;flex-direction:column;gap:12px}
+blockquote p{font-family:var(--display);font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:500;line-height:1.45}
+blockquote cite{font-style:normal;font-size:.85rem;color:var(--muted)}
+blockquote cite b{color:var(--ink)}
+.foot{font-size:.78rem;color:var(--muted)}
+a:focus-visible{outline:2px solid var(--marigold);outline-offset:3px}
+</style>
+
+<main class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Case Study · Account Health Recovery · Amazon + Flipkart</span>
+    <h1>LDR 14.29% → 0%. Sales <em>5.9x</em> YoY. A second marketplace.</h1>
+    <p class="lede">An at-risk Amazon account in devotional décor, recovered through a 100+ point audit, an FBA shift and a full listing rebuild, then expanded to Flipkart.</p>
+    <div class="meta">
+      <span class="chip">God idols · car dashboard · home mandir · office</span>
+      <span class="chip">Amazon.in → Flipkart</span>
+      <span class="chip">Client since 20 Jan 2026</span>
+      <span class="chip">Renewed quarterly</span>
+    </div>
+  </header>
+
+  <section class="kpis" aria-label="Key performance indicators">
+    <div class="kpi hl"><span class="k">Amazon sales</span><b>₹5,85,743</b><span class="s">20 Jan – 17 Nov 2026</span></div>
+    <div class="kpi hl"><span class="k">YoY growth</span><b>5.94x</b><span class="s">vs ₹98,672 same period LY</span></div>
+    <div class="kpi"><span class="k">Orders / units</span><b>598 / 610</b><span class="s">7.8x units YoY</span></div>
+    <div class="kpi"><span class="k">AOV</span><b>₹980</b><span class="s">1.02 units per order</span></div>
+    <div class="kpi ok"><span class="k">Late dispatch rate</span><b>0%</b><span class="s">From 14.29% · target &lt;2%</span></div>
+    <div class="kpi ok"><span class="k">Account Health Rating</span><b>208</b><span class="s">Healthy · 0 policy issues</span></div>
+    <div class="kpi hl"><span class="k">TACoS</span><b>6.38%</b><span class="s">84% organic revenue</span></div>
+    <div class="kpi"><span class="k">Flipkart net sales</span><b>₹1,57,403</b><span class="s">First 3 paid months</span></div>
+  </section>
+
+  <section class="ratios" aria-label="Key ratios">
+    <div class="ratio"><b>₹8.5K → ₹58.2K</b><span>Average monthly Amazon sales (6.8x)</span></div>
+    <div class="ratio"><b>₹15.67</b><span>Total sales per ₹1 of ad spend</span></div>
+    <div class="ratio"><b>3.8x</b><span>Flipkart net sales per month, free → paid</span></div>
+    <div class="ratio"><b>10+ months</b><span>Retention · 3 renewals · 2 marketplaces</span></div>
+  </section>
+
+  <section class="two">
+    <div class="stack">
+      <span class="eyebrow">Account brief</span>
+      <h2>Diagnosis at onboarding</h2>
+      <div class="tbl"><table class="spec" aria-label="Account brief">
+        <tbody>
+          <tr><td class="k">Fulfilment</td><td>Easy Ship (seller-fulfilled)</td></tr>
+          <tr><td class="k">Root cause</td><td>Missed carrier pickups</td></tr>
+          <tr><td class="k">Late Dispatch Rate</td><td>14.29% (4 of 28 orders)</td></tr>
+          <tr><td class="k">Prime badge</td><td>Suspended</td></tr>
+          <tr><td class="k">Buyer feedback</td><td>Negative ratings from late delivery</td></tr>
+          <tr><td class="k">Run-rate</td><td>~₹8.5K / month · 18 units in 76 days</td></tr>
+          <tr><td class="k">Brand Registry</td><td>No · SB / SD / video ads unavailable</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="stack">
+      <span class="eyebrow">Audit scope</span>
+      <h2>100+ checks across 12 areas</h2>
+      <div class="audit">
+        <span class="tag">Account health</span><span class="tag">ODR · LDR · VTR</span><span class="tag">Listing quality</span><span class="tag">SEO &amp; indexing</span><span class="tag">Buy Box &amp; pricing</span><span class="tag">Inventory &amp; IPI</span><span class="tag">PPC structure</span><span class="tag">Brand</span><span class="tag">Reviews &amp; returns</span><span class="tag">Profitability</span><span class="tag">Competitor gap</span><span class="tag">Growth</span>
+      </div>
+      <p class="muted">Findings were presented in the second meeting with a fix plan. Result: account access on a 3-month contract.</p>
+    </div>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Execution framework</span>
+    <h2>Fix operations first, then scale traffic</h2>
+    <ul class="steps">
+      <li><div class="top"><h3>Fulfilment fix</h3><span class="n">01</span></div>
+        <ul><li>Key ASINs shifted to FBA</li><li>Daily dispatch and pickup check for seller-fulfilled orders</li></ul>
+        <span class="out">LDR 14.29% → 0%</span></li>
+      <li><div class="top"><h3>Account health recovery</h3><span class="n">02</span></div>
+        <ul><li>Metric monitoring: ODR, LDR, cancel rate, VTR</li><li>Feedback handling on fulfilment-related ratings</li></ul>
+        <span class="out">AHR 208 · Prime restored</span></li>
+      <li><div class="top"><h3>Listing &amp; creative rebuild</h3><span class="n">03</span></div>
+        <ul><li>Lifestyle images by use case: car, mandir, office</li><li>Infographics: size, material, placement</li><li>Keyword-optimised titles, bullets, backend terms</li></ul>
+        <span class="out">Zero-sale ASINs started converting</span></li>
+      <li><div class="top"><h3>PPC: Sponsored Products</h3><span class="n">04</span></div>
+        <ul><li>SP Auto for search-term discovery</li><li>SP Manual keyword on harvested terms</li><li>Product targeting on competitor ASINs</li></ul>
+        <span class="out">TACoS 6.38% · 84% organic</span></li>
+      <li><div class="top"><h3>Flipkart launch</h3><span class="n">05</span></div>
+        <ul><li>1-month free trial: setup, listings, ads</li><li>PLA: Auto, phrase keywords, ROI campaigns</li><li>Converted to a 3-month paid contract</li></ul>
+        <span class="out">Ads ROI 3.0x · best campaign 5.95x</span></li>
+      <li><div class="top"><h3>Retention</h3><span class="n">06</span></div>
+        <ul><li>Quarterly reviews against the audit baseline</li><li>Renewed every quarter since January</li></ul>
+        <span class="out">10+ months active</span></li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Amazon performance</span>
+    <h2>Period-by-period numbers</h2>
+    <div class="two">
+      <div class="stack">
+        <div class="tbl"><table aria-label="Amazon sales by period">
+          <thead><tr><th>Period</th><th>Days</th><th>Units</th><th>Sales</th><th>Per month</th></tr></thead>
+          <tbody>
+            <tr><td>Before · 1 Nov 25 – 15 Jan 26</td><td>76</td><td>18</td><td>₹21,601</td><td>₹8.5K</td></tr>
+            <tr><td>Contract · 20 Jan – 20 Apr</td><td>91</td><td>151</td><td>₹1,46,530</td><td class="up">₹48.3K</td></tr>
+            <tr class="peak"><td>YTD · 20 Jan – 17 Nov</td><td>302</td><td>610</td><td>₹5,85,743</td><td class="up">₹58.2K</td></tr>
+          </tbody>
+        </table></div>
+        <div class="tbl"><table aria-label="Year on year comparison">
+          <thead><tr><th>Same window, YoY</th><th>2025</th><th>2026</th><th>Growth</th></tr></thead>
+          <tbody>
+            <tr><td>20 Jan – 20 Apr · sales</td><td>₹3,600</td><td>₹1,46,530</td><td class="up">40.7x</td></tr>
+            <tr><td>20 Jan – 17 Nov · sales</td><td>₹98,672</td><td>₹5,85,743</td><td class="up">5.94x</td></tr>
+            <tr><td>20 Jan – 17 Nov · units</td><td>78</td><td>610</td><td class="up">7.8x</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <figure class="chart">
+        <h3>Average monthly sales</h3>
+        <svg viewBox="0 0 400 220" role="img" aria-label="Average monthly Amazon sales: before ₹8.5K, contract period ₹48.3K, year to date ₹58.2K">
+          <g stroke="var(--line)" stroke-width="1">
+            <line x1="40" y1="180" x2="390" y2="180"/>
+            <line x1="40" y1="120" x2="390" y2="120" stroke-dasharray="3 4"/>
+            <line x1="40" y1="60" x2="390" y2="60" stroke-dasharray="3 4"/>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)" text-anchor="end">
+            <text x="34" y="183">0</text><text x="34" y="123">₹30K</text><text x="34" y="63">₹60K</text>
+          </g>
+          <!-- scale: ₹60K = 120px -->
+          <rect x="70" y="163" width="70" height="17" rx="3" fill="var(--muted)" opacity=".45"/>
+          <rect x="185" y="83.4" width="70" height="96.6" rx="3" fill="var(--marigold)" opacity=".6"/>
+          <rect x="300" y="63.6" width="70" height="116.4" rx="3" fill="var(--marigold)"/>
+          <g font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="var(--ink)" text-anchor="middle">
+            <text x="105" y="155">₹8.5K</text><text x="220" y="75">₹48.3K</text><text x="335" y="55">₹58.2K</text>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)" text-anchor="middle">
+            <text x="105" y="198">Before</text><text x="220" y="198">Contract</text><text x="335" y="198">YTD</text>
+          </g>
+        </svg>
+        <small>Monthly average = period sales ÷ days × 30. Source: Amazon Sales Dashboard.</small>
+      </figure>
+    </div>
+
+    <div class="two">
+      <div class="stack">
+        <h3>Ad vs organic · Amazon</h3>
+        <div class="split-bar" role="img" aria-label="Ad sales 15.7 percent, organic sales 84.3 percent">
+          <div class="ad" style="width:15.7%">15.7%</div><div class="org">Organic 84.3%</div>
+        </div>
+        <div class="legend"><span>Ad-attributed ₹92,014</span><span>Organic ₹4,93,729</span></div>
+      </div>
+      <div class="tbl"><table aria-label="Amazon advertising metrics">
+        <thead><tr><th>Amazon Ads</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Spend</td><td>₹37,379</td></tr>
+          <tr><td>Ad sales · ROAS</td><td>₹92,014 · 2.46x</td></tr>
+          <tr><td>ACoS</td><td>40.62%</td></tr>
+          <tr class="peak"><td>TACoS</td><td>6.38%</td></tr>
+          <tr><td>Ad cost per order (blended)</td><td>₹62.5</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="note"><b>Read</b><p class="muted">ACoS runs high on a low-AOV, discovery-led category, but blended TACoS is 6.38%: ads bought ranking, and 84% of revenue now comes without paid clicks.</p></div>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Account health · 15 Jan 2026 vs Nov 2026</span>
+    <h2>From at-risk to Healthy</h2>
+    <div class="health">
+      <div class="metric"><span class="lbl">Late dispatch rate</span><div class="row"><span class="from">14.29%</span><span class="to">0%</span></div><span class="sub">0 of 63 orders · 30 days</span></div>
+      <div class="metric"><span class="lbl">Order defect rate</span><div class="row"><span class="to">0.75%</span></div><span class="sub">SF 1/133 · FBA 0/40 · &lt;1%</span></div>
+      <div class="metric"><span class="lbl">Pre-fulfil cancel</span><div class="row"><span class="to">0%</span></div><span class="sub">0 of 64 orders</span></div>
+      <div class="metric"><span class="lbl">Valid tracking</span><div class="row"><span class="to">100%</span></div><span class="sub">57 of 57 shipments</span></div>
+      <div class="metric"><span class="lbl">Prime badge</span><div class="row"><span class="from">Off</span><span class="to">On</span></div><span class="sub">Restored · AHR 208</span></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Flipkart expansion</span>
+    <h2>Free month to prove it, then paid</h2>
+    <div class="two">
+      <div class="tbl"><table aria-label="Flipkart sales">
+        <thead><tr><th>Flipkart</th><th>Free · 11 Jul – 11 Aug</th><th>Paid · 12 Aug – 15 Nov</th></tr></thead>
+        <tbody>
+          <tr><td>Gross sales</td><td>₹22,934 · 38 u</td><td>₹3,63,305 · 403 u</td></tr>
+          <tr><td>Returns &amp; cancellations</td><td>₹9,567 · 16 u</td><td>₹1,88,857 · 197 u</td></tr>
+          <tr class="peak"><td>Net sales</td><td>₹12,887 · 22 u</td><td>₹1,57,403 · 206 u</td></tr>
+          <tr><td>Net earnings</td><td>₹11,551</td><td>₹1,12,566</td></tr>
+          <tr><td>Net sales / month</td><td>₹12.9K</td><td class="up">₹49.2K (3.8x)</td></tr>
+          <tr><td>Net earnings ÷ net sales</td><td>89.6%</td><td>71.5%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tbl"><table aria-label="Flipkart ads metrics">
+        <thead><tr><th>Flipkart PLA · 12 Aug – 9 Nov</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Spend · revenue</td><td>₹29.5K · ₹88.6K</td></tr>
+          <tr class="peak"><td>ROI</td><td>3.0x</td></tr>
+          <tr><td>Views · clicks</td><td>9.85L · 18K</td></tr>
+          <tr><td>CTR · CVR</td><td>1.87% · 0.50%</td></tr>
+          <tr><td>CPC</td><td>₹1.64</td></tr>
+          <tr><td>Ad share of gross sales</td><td>24% (76% organic)</td></tr>
+          <tr><td>Top campaigns by ROI</td><td>5.95x · 5.04x · 4.90x</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="note"><b>Current focus</b><p class="muted">Return and cancellation rate is 48.9% of units, driven by transit damage (RTO) on glass-dome idols and wrong delivery addresses. Packaging for fragile SKUs is being upgraded to bring the return rate down.</p></div>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Creative · before vs after</span>
+    <h2>From plain product shots to use-case lifestyle images</h2>
+    <div class="ba">
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/28.jpg" target="_blank" rel="noopener"><img src="img/28.jpg" alt="Old image: Radha Krishna idol on a dark background" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/26.webp" target="_blank" rel="noopener"><img src="img/26.webp" alt="New image: Radha Krishna idol on a car dashboard" loading="lazy"></a></figure><span class="cap">Radha Krishna · car dashboard</span></div>
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/43.jpg" target="_blank" rel="noopener"><img src="img/43.jpg" alt="Old image: Krishna idol on a plain desk" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/29.webp" target="_blank" rel="noopener"><img src="img/29.webp" alt="New image: Krishna infographic with size, material and use cases" loading="lazy"></a></figure><span class="cap">Krishna · infographic</span></div>
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/42.jpg" target="_blank" rel="noopener"><img src="img/42.jpg" alt="Old image: Durga idol on a dark background" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/31.webp" target="_blank" rel="noopener"><img src="img/31.webp" alt="New image: Durga idol on an office desk" loading="lazy"></a></figure><span class="cap">Durga · office desk</span></div>
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/45.jpg" target="_blank" rel="noopener"><img src="img/45.jpg" alt="Old image: Ganesh idol on a black background" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/36.webp" target="_blank" rel="noopener"><img src="img/36.webp" alt="New image: Ganesh idol in a home mandir" loading="lazy"></a></figure><span class="cap">Ganesh · home mandir</span></div>
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/39.jpg" target="_blank" rel="noopener"><img src="img/39.jpg" alt="Old image: Ram Lalla idol against a dark background" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/40.webp" target="_blank" rel="noopener"><img src="img/40.webp" alt="New image: Ram Lalla idol in a lit home mandir" loading="lazy"></a></figure><span class="cap">Ram Lalla · home mandir</span></div>
+      <div class="pair"><figure><span class="lab">Before</span><a href="img/48.jpg" target="_blank" rel="noopener"><img src="img/48.jpg" alt="Old image: Mahalakshmi idol on a plain desk" loading="lazy"></a></figure><figure><span class="lab new">After</span><a href="img/47.webp" target="_blank" rel="noopener"><img src="img/47.webp" alt="New image: Mahalakshmi idol in a festive puja setting" loading="lazy"></a></figure><span class="cap">Mahalakshmi · festive puja</span></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Client feedback</span>
+    <blockquote>
+      <p>"Our Amazon account was struggling due to ignored pickup and performance issues. Team Naman audited the account, found the root problems, and gave us a clear action plan. After implementation, the results matched my expectations. Good work!"</p>
+      <cite><b>Abhijeet Bhatia</b> · Amazon Seller, Devotional Décor</cite>
+    </blockquote>
+  </section>
+
+  <section class="stack">
+    <span class="eyebrow">Proof · Seller Central, Ads console, Flipkart Seller Hub</span>
+    <h2>The numbers, magnified</h2>
+    <div class="proofs">
+
+      <div class="proof">
+        <div class="cap"><h3>Amazon Sales Dashboard · before</h3><span>1 Nov 2025 – 15 Jan 2026</span></div>
+        <div class="shot" data-w="1193" data-h="546" data-lenses='[{"tx":155,"ty":200,"d":120,"z":2,"label":"18 units"},{"tx":328,"ty":200,"d":200,"z":1.8,"label":"₹21,601 in 76 days"}]'>
+          <img src="img/10.jpg" alt="Amazon Sales Dashboard 1 Nov 2025 to 15 Jan 2026: 18 units, ₹21,600.80">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Amazon Sales Dashboard · first contract</h3><span>20 Jan – 20 Apr 2026</span></div>
+        <div class="shot" data-w="1189" data-h="558" data-lenses='[{"tx":352,"ty":197,"d":220,"z":1.8,"label":"₹1,46,530"},{"tx":378,"ty":508,"d":220,"z":1.8,"label":"Same window LY: ₹3,600"}]'>
+          <img src="img/11.jpg" alt="Amazon Sales Dashboard 20 Jan to 20 Apr 2026: 151 units, ₹1,46,530.33; same range last year 3 units, ₹3,600">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Amazon Sales Dashboard · year to date</h3><span>20 Jan – 17 Nov 2026</span></div>
+        <div class="shot" data-w="1196" data-h="547" data-lenses='[{"tx":342,"ty":195,"d":220,"z":1.8,"label":"₹5,85,743"},{"tx":382,"ty":510,"d":220,"z":1.8,"label":"Same window LY: ₹98,672"}]'>
+          <img src="img/22.png" alt="Amazon Sales Dashboard 20 Jan to 17 Nov 2026: 610 units, ₹5,85,743; same range last year 78 units, ₹98,672.48">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Amazon Ads · performance</h3><span>20 Jan – 17 Nov 2026</span></div>
+        <div class="shot" data-w="1294" data-h="489" data-lenses='[{"tx":82,"ty":112,"d":165,"z":1.9,"label":"Spend ₹37,379"},{"tx":390,"ty":112,"d":180,"z":1.9,"label":"Ad sales ₹92,014"},{"tx":675,"ty":112,"d":150,"z":2,"label":"ROAS 2.46"},{"tx":992,"ty":112,"d":160,"z":2,"label":"ACoS 40.62%"}]'>
+          <img src="img/21.png" alt="Amazon Ads performance 20 Jan to 17 Nov 2026: cost ₹37,378.85, sales ₹92,013.95, ROAS 2.46, ACoS 40.62%">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Account Health · 15 Jan 2026 vs Nov 2026</h3><span>Seller Central</span></div>
+        <div class="proof-row">
+          <div class="shot" data-w="443" data-h="560" data-lenses='[{"tx":378,"ty":340,"d":150,"z":2,"label":"LDR 14.29%"}]'>
+            <img src="img/13.jpg" alt="Shipping performance on 15 Jan 2026: Late Dispatch Rate 14.29%, 4 of 28 orders">
+          </div>
+          <div class="shot" data-w="1343" data-h="584" data-lenses='[{"tx":245,"ty":232,"d":170,"z":1.8,"label":"ODR 0.75%"},{"tx":725,"ty":210,"d":190,"z":1.7,"label":"AHR 208"},{"tx":1295,"ty":362,"d":160,"z":1.8,"label":"LDR 0%"}]'>
+            <img src="img/19.png" alt="Account Health in Nov 2026: ODR 0.75%, Account Health Rating 208 Healthy, Late Dispatch Rate 0%">
+          </div>
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Feedback Manager</h3><span>2026 ratings · order IDs blurred</span></div>
+        <div class="shot" data-w="1864" data-h="844" data-lenses='[{"tx":540,"ty":222,"d":320,"z":1.5,"label":"1-star struck through by Amazon"}]'>
+          <img src="img/20.webp" alt="Feedback Manager: mostly 5-star ratings; two 1-star ratings struck through by Amazon as not the seller's fault">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Flipkart payments · before launch vs free month</h3><span>Jun 2026 · 11 Jul – 11 Aug 2026</span></div>
+        <div class="shot" data-w="1279" data-h="468" data-lenses='[{"tx":640,"ty":255,"d":240,"z":1.5,"label":"June: no data"}]'>
+          <img src="img/17.jpg" alt="Flipkart payments summary for June 2026: no data available">
+        </div>
+        <div class="shot" data-w="1299" data-h="525" data-lenses='[{"tx":612,"ty":299,"d":130,"z":1.9,"label":"Net sales ₹12,887","lp":"right"},{"tx":625,"ty":444,"d":130,"z":1.9,"label":"Net earnings ₹11,551","lp":"right"}]'>
+          <img src="img/16.jpg" alt="Flipkart 11 Jul to 11 Aug: gross ₹22,934, net sales ₹12,887, net earnings ₹11,551">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Flipkart payments · paid months</h3><span>12 Aug – 15 Nov 2026</span></div>
+        <div class="shot" data-w="1310" data-h="509" data-lenses='[{"tx":618,"ty":169,"d":115,"z":1.9,"label":"Gross ₹3,63,305","lp":"right"},{"tx":618,"ty":288,"d":115,"z":1.9,"label":"Net sales ₹1,57,403","lp":"right"},{"tx":615,"ty":433,"d":115,"z":1.9,"label":"Net earnings ₹1,12,566","lp":"right"}]'>
+          <img src="img/18.jpg" alt="Flipkart 12 Aug to 15 Nov: gross ₹3,63,305, net sales ₹1,57,403, net earnings ₹1,12,566">
+        </div>
+      </div>
+
+      <div class="proof">
+        <div class="cap"><h3>Flipkart Ads</h3><span>12 Aug – 9 Nov 2026</span></div>
+        <div class="shot" data-w="1306" data-h="570" data-lenses='[{"tx":147,"ty":160,"d":130,"z":2,"label":"ROI 3.00"},{"tx":762,"ty":160,"d":150,"z":1.9,"label":"Revenue ₹88.58K"}]'>
+          <img src="img/23.png" alt="Flipkart Ads 12 Aug to 9 Nov 2026: spend ₹29.50K, ROI 3.00, revenue ₹88.58K">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="foot">Sources: client's Amazon Seller Central (Sales Dashboard, Account Health, Feedback Manager), Amazon Ads console, Flipkart Seller Hub and Flipkart Ads. TACoS = ad spend ÷ total sales. Monthly averages = period sales ÷ days × 30. Brand name withheld at the client's request.</p>
+</main>
+
+<script>
+(function(){
+  function build(shot){
+    var img = shot.querySelector('img');
+    var W = +shot.dataset.w, H = +shot.dataset.h;
+    var lenses; try { lenses = JSON.parse(shot.dataset.lenses); } catch(e){ return; }
+    var els = lenses.map(function(L){
+      var lens = document.createElement('div'); lens.className = 'lens'; lens.setAttribute('aria-hidden','true');
+      lens.style.backgroundImage = 'url("'+img.getAttribute('src')+'")';
+      var tag = document.createElement('div'); tag.className = 'tagline' + (L.lp==='right' ? ' right' : ''); tag.textContent = L.label;
+      shot.appendChild(lens); shot.appendChild(tag);
+      return {L:L, lens:lens, tag:tag};
+    });
+    function layout(){
+      var w = img.clientWidth; if(!w) return;
+      var s = w / W, overflow = 0;
+      els.forEach(function(o){
+        var L=o.L, d = L.d*s, z = L.z;
+        o.lens.style.width = d+'px'; o.lens.style.height = d+'px';
+        o.lens.style.left = (L.tx/W*100)+'%'; o.lens.style.top = (L.ty/H*100)+'%';
+        o.lens.style.backgroundSize = (W*s*z)+'px '+(H*s*z)+'px';
+        o.lens.style.backgroundPosition = (-(L.tx*s*z - d/2))+'px '+(-(L.ty*s*z - d/2))+'px';
+        if (L.lp==='right'){
+          o.tag.style.left = 'calc('+(L.tx/W*100)+'% + '+(d/2+14)+'px)'; o.tag.style.top = (L.ty/H*100)+'%';
+          overflow = Math.max(overflow, L.ty*s + d/2 + 12 - H*s);
+        } else {
+          o.tag.style.left = (L.tx/W*100)+'%'; o.tag.style.top = 'calc('+(L.ty/H*100)+'% + '+(d/2+10)+'px)';
+          overflow = Math.max(overflow, L.ty*s + d/2 + 44 - H*s);
+        }
+      });
+      shot.style.marginBottom = Math.max(20, overflow)+'px';
+    }
+    if (img.complete) layout(); else img.addEventListener('load', layout);
+    window.addEventListener('resize', layout);
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(img);
+  }
+  document.querySelectorAll('.shot').forEach(build);
+})();
+</script>
+
+</html>
